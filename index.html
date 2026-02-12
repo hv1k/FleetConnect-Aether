@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script>
+      // Theme init - prevent flash of wrong theme
+      (function(){
+        var t = localStorage.getItem('fleetconnect-theme');
+        if(t === 'light') document.documentElement.classList.add('light-mode');
+      })();
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FleetConnect</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+/* ===== AURORA THEME — Glassmorphism Purple/Teal ===== */
+/* Glass card effect */
+.stat-card, .analytics-card, .table-card, .admin-card, .metric-card {
+    background: rgba(24, 21, 48, 0.6) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(139, 92, 246, 0.12) !important;
+    border-radius: 16px !important;
+}
+.admin-sidebar {
+    background: rgba(16, 14, 32, 0.85) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-right: 1px solid rgba(139, 92, 246, 0.1) !important;
+}
+.admin-nav-item {
+    border-radius: 12px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.admin-nav-item:hover {
+    background: rgba(139, 92, 246, 0.08) !important;
+    transform: translateX(4px);
+}
+.admin-nav-item.active {
+    background: rgba(139, 92, 246, 0.15) !important;
+    color: #8b5cf6 !important;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.08);
+}
+.btn-primary, .btn {
+    border-radius: 12px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.btn-primary:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.3) !important;
+}
+input, textarea, select {
+    border-radius: 12px !important;
+    transition: all 0.25s ease !important;
+}
+input:focus, textarea:focus, select:focus {
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15), 0 0 30px rgba(139, 92, 246, 0.05) !important;
+}
+.modal {
+    border-radius: 20px !important;
+    background: rgba(24, 21, 48, 0.9) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border: 1px solid rgba(139, 92, 246, 0.15) !important;
+}
+/* Gradient accents */
+.brand-panel::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #8b5cf6, #14b8a6, transparent);
+}
+.header h1, .admin-sidebar-logo {
+    background: linear-gradient(135deg, #8b5cf6, #14b8a6) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: rgba(16, 14, 32, 0.5); }
+::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(139, 92, 246, 0.5); }
+/* Status badges */
+.role-badge, .status-badge { border-radius: 20px !important; }
+/* Animated background pulse */
+body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 70%, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(20, 184, 166, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+    animation: auroraPulse 20s ease-in-out infinite;
+}
+@keyframes auroraPulse {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(-5%, 5%) scale(1.02); }
+    50% { transform: translate(5%, -5%) scale(0.98); }
+    75% { transform: translate(-3%, -3%) scale(1.01); }
+}
+
+</style>
+</head>
+<body>
+    <script src="supabase-client.js"></script>
+    <script>
+        // Redirect to role-appropriate dashboard (or login if not authenticated)
+        const user = getCurrentUser();
+        if (user) {
+            window.location.replace(getDashboardUrl(user.role));
+        } else {
+            window.location.replace('login.html');
+        }
+    </script>
+
+    <div style="position:fixed;top:16px;right:16px;z-index:9999;"></div>
+    
+</body>
+</html>
